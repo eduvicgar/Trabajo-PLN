@@ -245,3 +245,11 @@ Si no hubiéramos filtrado únicamente los sustantivos, estas palabras también 
 \caption{Análisis de la palabra "linfoma" en el texto.}
 \label{fig:ejemplo2}
 \end{figure}
+
+# Bibliografía
+
+[1] Artículos médicos en español
+Original Train Set – MESINESP: Medical Semantic Indexing in Spanish. (s. f.). https://temu.bsc.es/mesinesp/index.php/download/original-train-set/
+
+[2] Definiciones médicas 
+Qué es abdominocentesis | Diccionario médico | Clínica U. Navarra. (s. f.). https://www.cun.es. https://www.cun.es/diccionario-medico/terminos/abdominocentesis
