@@ -212,14 +212,13 @@ filtrar_enfermedades <- function(txt) {
 
 Podemos probar el script con un texto de ejemplo extraído del JSON con artículos médicos.
 
-```{r}
-json <- read_json("MESINESP_ORIGINAL_TRAINING.json")
+```{r warning=FALSE}
+texto <- readLines("datos/texto 120.txt")
 ```
 
 
 ```{r warning=FALSE}
 # Texto de prueba
-texto <- json[["articles"]][[119]][["abstractText"]]
 resultado <- filtrar_enfermedades(texto)
 
 # Usando la librería kable y kableExtra, construimos una tabla en TeX de forma
