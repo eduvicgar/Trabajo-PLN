@@ -1,13 +1,15 @@
 ---
 title: "Práctica PLN Grupo 6"
-date: "2024-11-22"
 output: pdf_document
 ---
-Álvaro Herrero: alvaro.herrero.vidal@alumnos.upm.es
-Eduardo Vicente: eduardo.vicente@alumnos.upm.es
-Mateo Bordoy: mateo.bordoy@alumnos.upm.es
-Laura García: laura.gagonzalez@alumnos.upm.es
-Esteban Moreno: esteban.moreno@alumnos.upm.es
+Integrantes:
+\begin{itemize}
+  \item Álvaro Herrero: alvaro.herrero.vidal@alumnos.upm.es
+  \item Eduardo Vicente: eduardo.vicente@alumnos.upm.es
+  \item Mateo Bordoy: mateo.bordoy@alumnos.upm.es
+  \item Laura García: laura.gagonzalez@alumnos.upm.es
+  \item Esteban Moreno: esteban.moreno@alumnos.upm.es
+\end{itemize}
 
 # Introducción
 
@@ -33,15 +35,16 @@ knitr::opts_chunk$set(echo = TRUE)
 Cargamos las librerías que vamos a utilizar.
 
 ```{r warning=FALSE}
-library(httr)
 library(rvest)
 library(spacyr)
-library(jsonlite)
 ```
+"rvest" es una librería que permite hacer web scraping en R. La emplearemos para buscar la definición de las enfermedades que filtremos.
+"spacyr" es una librería que usaremos para parsear los textos por palabras y sintagmas nominales, así como filtrar las palabras según su tipo.
+
 
 Definimos la función buscar_definicion_diccionario. 
 
-Esta función se encarga de, dado una palabra que se corresponde con una enfermedad, consultar un diccionario de términos médicos y devuelve su definición si se encuentra registrado en el diccionario. En caso contrario se devolverá un string vacío y en caso de error a la hora de obtener la definición se devolverá NA.
+Esta función se encarga de, dado una palabra que se corresponde con una enfermedad, consultar un diccionario de términos médicos y devuelve su definición si se encuentra registrado en el diccionario. En el caso de que esa enfermedad no se encuentre en el diccionario, se devolverá un string vacío.
 
 ```{r}
 # Función para buscar definiciones en el diccionario médico
@@ -94,14 +97,14 @@ filtrar_enfermedades <- function(txt) {
     cancer = "\\b\\w*oma\\b"
   )
   
-  clasificar_enfermedades_nouns <- function(patron, columna) {
-    # Vector para almacenar las coincidencias encontradas
+  clasificar_enfermedades_nouns <- function(patron, texto) {
+    # Filtra las palabras que coincidan con el patrón proporcionado
     enfermedades <- c()
     
-    # Itera sobre cada elemento de la columna
-    for (texto in columna) {
-      # Busca todas las coincidencias del patrón en el texto
-      coincidencias <- regmatches(texto, gregexpr(patron, texto, 
+    # Itera sobre cada palabra del texto proporcionado
+    for (palabra in texto) {
+      # Extrae las palabras que coincidan con el patrón
+      coincidencias <- regmatches(palabra, gregexpr(patron, palabra, 
                                                   ignore.case = TRUE))[[1]]
       # Agrega las coincidencias encontradas
       if (length(coincidencias) > 0) {
@@ -113,10 +116,10 @@ filtrar_enfermedades <- function(txt) {
     return(enfermedades)
   }
   
-  clasificar_enfermedades <- function(patron, columna) {
-    # Filtra los elementos que contienen al menos una palabra que coincida 
-    # con el patrón
-    textos_filtrados <- columna[grep(patron, columna, ignore.case = TRUE)]
+  clasificar_enfermedades <- function(patron, texto) {
+    # Filtra los sintagmas nominales que contienen al menos una palabra que  
+    # coincida con el patrón proporcionado
+    textos_filtrados <- texto[grep(patron, texto, ignore.case = TRUE)]
     
     # Devuelve los textos completos que cumplen con el criterio
     return(textos_filtrados)
@@ -160,14 +163,14 @@ filtrar_enfermedades <- function(txt) {
                                                     collapse = " "))
   }
   
-  # Clasificamos el vector con los sustantivos según el tipo de enfermedad que 
-  # corresponda.
+  # Para cada patrón en la lista de expresiones regulares, clasificamos los
+  # sustantivos y los guardamos en una lista según su tipo
   enfermedades_nouns_clasificadas <- lapply(patrones, function(patron) {
     clasificar_enfermedades_nouns(patron, sn_nouns_filtrado)
   })
   
-  # Clasificamos el vector con los sintagmas nominales según el tipo de 
-  # enfermedad que corresponda.
+  # Para cada patrón en la lista de expresiones regulares, clasificamos los 
+  # sintagmas nominales según el tipo de enfermedad que contengan
   enfermedades_clasificadas <- lapply(patrones, function(patron) {
     clasificar_enfermedades(patron, sn_filtrado)
   })
@@ -206,7 +209,6 @@ filtrar_enfermedades <- function(txt) {
 }
 ```
 
-\textbf{NOTA IMPORTANTE:} Al filtrar únicamente los sustantivos, perdemos todos los tokens que spacy considere que no son susantivos, pese a que se correspondan a una enfermedad. Por ejemplo, en este texto, palabras como linfoma o melanoma no son incluidas porque spacy considera que son verbos.
 
 # Resultado
 
@@ -229,6 +231,8 @@ kable(resultado, caption = "Dataframe resultado", booktabs = TRUE) %>%
   column_spec(4, width = "4cm") %>%
   kable_styling(latex_options = c("hold_position"))
 ```
+
+\textbf{NOTA IMPORTANTE:} Al filtrar únicamente los sustantivos, perdemos todos los tokens que spacy considere que no son sustantivos, pese a que se correspondan a una enfermedad. Por ejemplo, en este texto, palabras como linfoma o melanoma no son incluidas porque spacy considera que son verbos.
 
 Si no hubiéramos filtrado únicamente los sustantivos, estas palabras también aparecerían en el dataframe:
 
@@ -253,7 +257,7 @@ El desarrollo del proyecto del buscador de enfermedades se llevó a cabo en equi
 A continuación, se detalla la división del trabajo y el rol desempeñado por cada integrante del equipo:
 
 Responsable: Álvaro Herrero y Eduardo Vicente (50% - 50%)
-Se enfocaron en desarrollar las expresiones regulares necesarias para identificar las enfermedades en los textos, basándose en los afijos médicos predefinidos. Asimismo, se aseguraron de que las palabras encontradas fueran sustantivos, descartando aquellos casos en los que los afijos estuvieran presentes en adjetivos o verbos.
+Se enfocaron en desarrollar las expresiones regulares necesarias para identificar las enfermedades en los textos, basándose en los afijos médicos predefinidos y las funciones que se encargan de clasificar las enfermedades según su tipo. Asimismo, se aseguraron de que las palabras encontradas fueran sustantivos, descartando aquellos casos en los que los afijos estuvieran presentes en adjetivos o verbos.
 
 Responsable: Esteban Moreno
 Fue responsable de implementar el análisis sintáctico del texto para extraer el sintagma nominal completo que describiera cada enfermedad (por ejemplo, "fascitis necrosante"). También se encargó de la lematización de las enfermedades identificadas
@@ -261,7 +265,7 @@ Fue responsable de implementar el análisis sintáctico del texto para extraer e
 Responsable: Laura García y Mateo Bordoy (50% - 50%)
 Se encargaron del módulo opcional que buscaba la definición de cada enfermedad en un diccionario médico en línea, enriqueciendo así la información proporcionada por el sistema.
 
-Responsable: Miembro 5 Laura García y Mateo Bordoy (50% - 50%)
+Responsable: Laura García y Mateo Bordoy (50% - 50%)
 Fueron los responsables de redactar la memoria del proyecto, incluyendo la descripción del sistema, la metodología empleada, los resultados obtenidos y las conclusiones, así como propuestas para mejoras futuras.
 
 

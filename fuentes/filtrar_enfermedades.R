@@ -9,15 +9,15 @@ filtrar_enfermedades <- function(txt) {
     cancer = "\\b\\w*oma\\b"
   )
   
-  clasificar_enfermedades_nouns <- function(patron, columna) {
-    # Vector para almacenar las coincidencias encontradas
+  clasificar_enfermedades_nouns <- function(patron, texto) {
+    # Filtra las palabras que coincidan con el patrón proporcionado
     enfermedades <- c()
     
-    # Itera sobre cada elemento de la columna
-    for (texto in columna) {
-      # Busca todas las coincidencias del patrón en el texto
-      coincidencias <- regmatches(texto, gregexpr(patron, texto, 
-                                                  ignore.case = TRUE))[[1]]
+    # Itera sobre cada palabra del texto proporcionado
+    for (palabra in texto) {
+      # Extrae las palabras que coincidan con el patrón
+      coincidencias <- regmatches(palabra, gregexpr(patron, palabra, 
+                                                    ignore.case = TRUE))[[1]]
       # Agrega las coincidencias encontradas
       if (length(coincidencias) > 0) {
         enfermedades <- c(enfermedades, coincidencias)
@@ -28,10 +28,10 @@ filtrar_enfermedades <- function(txt) {
     return(enfermedades)
   }
   
-  clasificar_enfermedades <- function(patron, columna) {
-    # Filtra los elementos que contienen al menos una palabra que coincida 
-    # con el patrón
-    textos_filtrados <- columna[grep(patron, columna, ignore.case = TRUE)]
+  clasificar_enfermedades <- function(patron, texto) {
+    # Filtra los sintagmas nominales que contienen al menos una palabra que  
+    # coincida con el patrón proporcionado
+    textos_filtrados <- texto[grep(patron, texto, ignore.case = TRUE)]
     
     # Devuelve los textos completos que cumplen con el criterio
     return(textos_filtrados)
@@ -75,14 +75,14 @@ filtrar_enfermedades <- function(txt) {
                                                     collapse = " "))
   }
   
-  # Clasificamos el vector con los sustantivos según el tipo de enfermedad que 
-  # corresponda.
+  # Para cada patrón en la lista de expresiones regulares, clasificamos los
+  # sustantivos y los guardamos en una lista según su tipo
   enfermedades_nouns_clasificadas <- lapply(patrones, function(patron) {
     clasificar_enfermedades_nouns(patron, sn_nouns_filtrado)
   })
   
-  # Clasificamos el vector con los sintagmas nominales según el tipo de 
-  # enfermedad que corresponda.
+  # Para cada patrón en la lista de expresiones regulares, clasificamos los 
+  # sintagmas nominales según el tipo de enfermedad que contengan
   enfermedades_clasificadas <- lapply(patrones, function(patron) {
     clasificar_enfermedades(patron, sn_filtrado)
   })
