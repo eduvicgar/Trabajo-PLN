@@ -245,3 +245,33 @@ Si no hubiéramos filtrado únicamente los sustantivos, estas palabras también 
 \caption{Análisis de la palabra "linfoma" en el texto.}
 \label{fig:ejemplo2}
 \end{figure}
+
+# Trabajo grupal
+
+El desarrollo del proyecto del buscador de enfermedades se llevó a cabo en equipo trabajando de manera colaborativa para un desempeño más efectivo. Además, se aprovecharon las horas de trabajo en clase proporcionadas por el profesor para resolver las posibles dudas que fueron surgiendo y colaborar de manera conjunta en la resolución de ciertos apartados del proyecto, favoreciendo la comprensión grupal con los avances que se iban realizando.
+
+A continuación, se detalla la división del trabajo y el rol desempeñado por cada integrante del equipo:
+
+Responsable: Álvaro Herrero y Eduardo Vicente (50% - 50%)
+Se enfocaron en desarrollar las expresiones regulares necesarias para identificar las enfermedades en los textos, basándose en los afijos médicos predefinidos. Asimismo, se aseguraron de que las palabras encontradas fueran sustantivos, descartando aquellos casos en los que los afijos estuvieran presentes en adjetivos o verbos.
+
+Responsable: Esteban Moreno
+Fue responsable de implementar el análisis sintáctico del texto para extraer el sintagma nominal completo que describiera cada enfermedad (por ejemplo, "fascitis necrosante"). También se encargó de la lematización de las enfermedades identificadas
+
+Responsable: Laura García y Mateo Bordoy (50% - 50%)
+Se encargaron del módulo opcional que buscaba la definición de cada enfermedad en un diccionario médico en línea, enriqueciendo así la información proporcionada por el sistema.
+
+Responsable: Miembro 5 Laura García y Mateo Bordoy (50% - 50%)
+Fueron los responsables de redactar la memoria del proyecto, incluyendo la descripción del sistema, la metodología empleada, los resultados obtenidos y las conclusiones, así como propuestas para mejoras futuras.
+
+
+
+
+
+# Bibliografía
+
+[1] Artículos médicos en español
+Original Train Set – MESINESP: Medical Semantic Indexing in Spanish. (s. f.). https://temu.bsc.es/mesinesp/index.php/download/original-train-set/
+
+[2] Definiciones médicas 
+Qué es abdominocentesis | Diccionario médico | Clínica U. Navarra. (s. f.). https://www.cun.es. https://www.cun.es/diccionario-medico/terminos/abdominocentesis
