@@ -92,7 +92,7 @@ filtrar_enfermedades <- function(txt) {
   # Definimos patrones de enfermedades
   patrones <- list(
     dolor = "\\b\\w*algia\\b",
-    alteracion = "\\b([H|h]ipo|[H|h]iper)\\w*\\b",
+    alteracion = "\\b(hipo|hiper)\\w*\\b",
     infeccion = "\\b\\w*itis\\b",  
     cancer = "\\b\\w*oma\\b"
   )
@@ -142,7 +142,7 @@ filtrar_enfermedades <- function(txt) {
     # o nombres propios
     palabras_validas <- subset(
       parsed_text,
-      grepl("\\b([Hh]ipo\\w*|[Hh]iper\\w*|\\w*itis|\\w*algia|\\w*oma)\\b", token, ignore.case = TRUE)
+      grepl("\\b(hipo\\w*|hiper\\w*|\\w*itis|\\w*algia|\\w*oma)\\b", token, ignore.case = TRUE)
       & pos %in% c("NOUN", "PROPN")
     )
     
