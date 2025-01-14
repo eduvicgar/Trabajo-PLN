@@ -38,7 +38,7 @@ Cargamos las librerías que vamos a utilizar.
 library(rvest)
 library(spacyr)
 ```
-"rvest" es una librería que permite hacer web scraping en R. La emplearemos para buscar la definición de las enfermedades que filtremos.
+"rvest" es una librería que permite hacer web scraping en R. La emplearemos para buscar la definición de las enfermedades que filtremos. \newline
 "spacyr" es una librería que usaremos para parsear los textos por palabras y sintagmas nominales, así como filtrar las palabras según su tipo.
 
 
@@ -256,21 +256,21 @@ El desarrollo del proyecto del buscador de enfermedades se llevó a cabo en equi
 
 A continuación, se detalla la división del trabajo y el rol desempeñado por cada integrante del equipo:
 
-Responsable: Álvaro Herrero y Eduardo Vicente (50% - 50%)
+Responsable: Álvaro Herrero y Eduardo Vicente (50% - 50%) \newline
 Se enfocaron en desarrollar las expresiones regulares necesarias para identificar las enfermedades en los textos, basándose en los afijos médicos predefinidos y las funciones que se encargan de clasificar las enfermedades según su tipo. Asimismo, se aseguraron de que las palabras encontradas fueran sustantivos, descartando aquellos casos en los que los afijos estuvieran presentes en adjetivos o verbos.
 
-Responsable: Esteban Moreno
+Responsable: Esteban Moreno \newline
 Fue responsable de implementar el análisis sintáctico del texto para extraer el sintagma nominal completo que describiera cada enfermedad (por ejemplo, "fascitis necrosante"). También se encargó de la lematización de las enfermedades identificadas
 
-Responsable: Laura García y Mateo Bordoy (50% - 50%)
+Responsable: Laura García y Mateo Bordoy (50% - 50%) \newline
 Se encargaron del módulo opcional que buscaba la definición de cada enfermedad en un diccionario médico en línea, enriqueciendo así la información proporcionada por el sistema.
 
-Responsable: Laura García y Mateo Bordoy (50% - 50%)
+Responsable: Laura García y Mateo Bordoy (50% - 50%) \newline
 Fueron los responsables de redactar la memoria del proyecto, incluyendo la descripción del sistema, la metodología empleada, los resultados obtenidos y las conclusiones, así como propuestas para mejoras futuras.
 
+# Conclusiones y mejoras futuras
 
-
-
+Con esta práctica hemos aprendido a elaborar un código que puede filtrar correctamente palabras según un conjunto de expresiones regulares y a extraer su definición de una página web. Sin embargo, la práctica no está optimizada al completo y por tanto, podemos resaltar alguna propuesta de mejora futura para mejorar la eficiencia del código. Por ejemplo, podemos ver que el script usa el parseador de spacy en dos ocasiones: para filtrar los sintagmas nominales que tienen palabras que coincidan con los patrones proporcionados y para extraer los sustantivos/nombres propios de esos sintagmas nominales. Una posible mejora en eficiencia sería hacer esas dos operaciones con un solo parseado de los textos, filtrando los sintagmas nominales que cumplan con los requisitos dados y al mismo tiempo extrayendo los sustantivos y nombres propios de esos sintagmas.
 
 # Bibliografía
 
