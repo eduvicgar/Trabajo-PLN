@@ -250,6 +250,10 @@ Si no hubiéramos filtrado únicamente los sustantivos, estas palabras también 
 \label{fig:ejemplo2}
 \end{figure}
 
+# Testeo
+
+Para comprobar que el script funciona correctamente con cualquier texto, hemos extraído algunos de los textos que más palabras con los afijos que nos interesan tienen de "MESINESP_ORIGINAL_TRAINING.json", los cuáles se encuentran en la carpeta "datos" y los hemos probado con el script "tester.R", dentro de la carpeta "pruebas". Hemos exportado los dataframes resultados como archivos CSV a la carpeta "resultados".
+
 # Trabajo grupal
 
 El desarrollo del proyecto del buscador de enfermedades se llevó a cabo en equipo trabajando de manera colaborativa para un desempeño más efectivo. Además, se aprovecharon las horas de trabajo en clase proporcionadas por el profesor para resolver las posibles dudas que fueron surgiendo y colaborar de manera conjunta en la resolución de ciertos apartados del proyecto, favoreciendo la comprensión grupal con los avances que se iban realizando.
@@ -257,10 +261,10 @@ El desarrollo del proyecto del buscador de enfermedades se llevó a cabo en equi
 A continuación, se detalla la división del trabajo y el rol desempeñado por cada integrante del equipo:
 
 Responsable: Álvaro Herrero y Eduardo Vicente (50% - 50%) \newline
-Se enfocaron en desarrollar las expresiones regulares necesarias para identificar las enfermedades en los textos, basándose en los afijos médicos predefinidos y las funciones que se encargan de clasificar las enfermedades según su tipo. Asimismo, se aseguraron de que las palabras encontradas fueran sustantivos, descartando aquellos casos en los que los afijos estuvieran presentes en adjetivos o verbos.
+Se enfocaron en desarrollar las expresiones regulares necesarias para identificar las enfermedades en los textos, basándose en los afijos médicos predefinidos y las funciones que se encargan de clasificar las enfermedades según su tipo. Asimismo, elaboraron el fragmento de script que se encarga de escoger las palabras deseadas de los sintagmas nominales fitrados, asegurándose de que las palabras encontradas fueran sustantivos, descartando aquellos casos en los que los afijos estuvieran presentes en adjetivos o verbos.
 
 Responsable: Esteban Moreno \newline
-Fue responsable de implementar el análisis sintáctico del texto para extraer el sintagma nominal completo que describiera cada enfermedad (por ejemplo, "fascitis necrosante"). También se encargó de la lematización de las enfermedades identificadas
+Fue responsable de implementar el análisis sintáctico del texto para extraer el sintagma nominal completo que describiera cada enfermedad (por ejemplo, "fascitis necrosante"). También se encargó de la lematización de las enfermedades identificadas.
 
 Responsable: Laura García y Mateo Bordoy (50% - 50%) \newline
 Se encargaron del módulo opcional que buscaba la definición de cada enfermedad en un diccionario médico en línea, enriqueciendo así la información proporcionada por el sistema.
