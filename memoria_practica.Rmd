@@ -231,10 +231,10 @@ resultado <- filtrar_enfermedades(texto)
 # que todo el contenido del dataframe sea legible y no se salga de la página.
 # install.packages(kableExtra) 
 library(kableExtra)
-kable(resultado, caption = "Dataframe resultado", booktabs = TRUE) %>%
-  column_spec(2, width = "2cm") %>%
-  column_spec(3, width = "5cm") %>%
-  column_spec(4, width = "4cm") %>%
+kable(resultado, caption = "Dataframe resultado") %>%
+  column_spec(2, width = "2cm") %>% # Ancho columna enfermedad
+  column_spec(3, width = "5cm") %>% # Ancho columna sintagma_nominal_completo
+  column_spec(4, width = "4cm") %>% # Ancho columna definición
   kable_styling(latex_options = c("hold_position"))
 ```
 
