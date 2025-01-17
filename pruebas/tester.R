@@ -16,4 +16,4 @@ resultado
 
 # Opcionalmente se puede exportar el resultado como un csv
 # library(readr)
-# write.csv(resultado, "resultado.csv")
+# write.csv(resultado, "../resultados/texto 120.csv")
