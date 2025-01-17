@@ -28,9 +28,10 @@ El resultado final será un dataframe con los siguientes elementos por enfermeda
 
 ```{r setup, include=FALSE}
 library(knitr)
-library(kableExtra)
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+## Librerías utilizadas
 
 Cargamos las librerías que vamos a utilizar.
 
@@ -41,6 +42,7 @@ library(spacyr)
 "rvest" es una librería que permite hacer web scraping en R. La emplearemos para buscar la definición de las enfermedades que filtremos. \newline
 "spacyr" es una librería que usaremos para parsear los textos por palabras y sintagmas nominales, así como filtrar las palabras según su tipo.
 
+## Función para buscar la definición en el diccionario médico
 
 Definimos la función buscar_definicion_diccionario. 
 
@@ -77,6 +79,8 @@ buscar_definicion_diccionario <- function(enfermedad) {
   return(definicion)
 }
 ```
+
+## Función para filtrar enfermedades de los textos
 
 Definimos la función filtrar_enfermedades, la cual será la función principal del script.
 
@@ -223,8 +227,10 @@ texto <- readLines("datos/texto 120.txt")
 # Texto de prueba
 resultado <- filtrar_enfermedades(texto)
 
-# Usando la librería kable y kableExtra, construimos una tabla en TeX de forma
+# Usando la librería kable y kableExtra, construimos una tabla en LaTeX de forma
 # que todo el contenido del dataframe sea legible y no se salga de la página.
+# install.packages(kableExtra) 
+library(kableExtra)
 kable(resultado, caption = "Dataframe resultado", booktabs = TRUE) %>%
   column_spec(2, width = "2cm") %>%
   column_spec(3, width = "5cm") %>%
@@ -274,7 +280,7 @@ Fueron los responsables de redactar la memoria del proyecto, incluyendo la descr
 
 # Conclusiones y mejoras futuras
 
-Con esta práctica hemos aprendido a elaborar un código que puede filtrar correctamente palabras según un conjunto de expresiones regulares y a extraer su definición de una página web. Sin embargo, la práctica no está optimizada al completo y por tanto, podemos resaltar alguna propuesta de mejora futura para mejorar la eficiencia del código. Por ejemplo, podemos ver que el script usa el parseador de spacy en dos ocasiones: para filtrar los sintagmas nominales que tienen palabras que coincidan con los patrones proporcionados y para extraer los sustantivos/nombres propios de esos sintagmas nominales. Una posible mejora en eficiencia sería hacer esas dos operaciones con un solo parseado de los textos, filtrando los sintagmas nominales que cumplan con los requisitos dados y al mismo tiempo extrayendo los sustantivos y nombres propios de esos sintagmas.
+Con esta práctica hemos aprendido a elaborar un código que puede filtrar correctamente palabras según un conjunto de expresiones regulares y a extraer su definición de una página web. Sin embargo, la práctica no está optimizada al completo y por tanto, podemos resaltar alguna propuesta de mejora futura para mejorar la eficiencia del código. Por ejemplo, podemos ver que el script usa el parseador de spacy en dos ocasiones: para filtrar los sintagmas nominales que tienen palabras que coincidan con los patrones proporcionados y para extraer los sustantivos/nombres propios de esos sintagmas nominales. Una posible mejora en eficiencia sería hacer esas dos operaciones con un solo parseado de los textos, filtrando los sintagmas nominales que cumplan con los requisitos dados y al mismo tiempo extrayendo los sustantivos y nombres propios que busquemos de esos sintagmas.
 
 # Bibliografía
 
