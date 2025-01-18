@@ -8,7 +8,7 @@ source("../fuentes/buscar_definicion_diccionario.R")
 source("../fuentes/filtrar_enfermedades.R")
 
 # Leemos el texto a analizar
-texto <- readLines("../datos/texto 120.txt")
+texto <- readLines("../datos/texto 47195.txt")
 
 # Obtenemos el dataframe
 resultado <- filtrar_enfermedades(texto)
@@ -16,4 +16,4 @@ resultado
 
 # Opcionalmente se puede exportar el resultado como un csv
 # library(readr)
-# write.csv(resultado, "../resultados/texto 120.csv")
+# write.csv(resultado, "../resultados/texto 47195.csv")

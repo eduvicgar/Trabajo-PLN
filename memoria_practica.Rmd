@@ -237,8 +237,7 @@ kable(resultado, caption = "Dataframe resultado") %>%
   column_spec(2, width = "2cm") %>% # Ancho columna enfermedad
   column_spec(3, width = "5cm") %>% # Ancho columna sintagma_nominal_completo
   column_spec(4, width = "4cm") %>% # Ancho columna definición
-  kable_styling(latex_options = c("hold_position")) # Evita que la tabla se desplace a otras partes
-                                                    # del documento
+  kable_styling(latex_options = c("hold_position")) # Evita que la tabla se desplace de este lugar
 ```
 
 \textbf{NOTA IMPORTANTE:} Al filtrar únicamente los sustantivos, perdemos todos los tokens que spacy considere que no son sustantivos, pese a que se correspondan a una enfermedad. Por ejemplo, en este texto, palabras como linfoma o melanoma no son incluidas porque spacy considera que son verbos.
@@ -261,15 +260,15 @@ Si no hubiéramos filtrado únicamente los sustantivos, estas palabras también 
 
 # Testeo
 
-Para comprobar que el script funciona correctamente con cualquier texto, hemos extraído algunos de los textos que más palabras con los afijos que nos interesan tienen de "MESINESP_ORIGINAL_TRAINING.json", los cuáles se encuentran en la carpeta "datos" y los hemos probado con el script "tester.R", dentro de la carpeta "pruebas". Hemos exportado los dataframes resultados como archivos CSV a la carpeta "resultados".
+Para comprobar que el script funciona correctamente, hemos extraído algunos de los textos que más palabras con los afijos que nos interesan tienen de "MESINESP_ORIGINAL_TRAINING.json", los cuáles se encuentran en la carpeta "datos" y los hemos probado con el script "tester.R", dentro de la carpeta "pruebas". Hemos exportado los dataframes resultados como archivos CSV a la carpeta "resultados".
 
 # Dificultades
 
 En general la práctica se ha desarrollado sin dificultades reseñables, ya que la mayoría de los aspectos que se incluyen en la práctica se han visto en clase. Lo único que nos ha supuesto más trabajo son los siguientes aspectos:
 
 \begin{itemize}
-  \item \textbf{Función para obtener definiciones:} Este aspecto de la práctica no ha sido complicado en sí, pero si que ha requerido un poco de investigación porque en un principio no sabíamos cómo extraer la definición a partir de la página web proporcionada. Sin embargo, una vez encontrada la librería necesaria para poder extraer la definición de la página web, el desarrollo de esta parte de la práctica no fue difícil.
-  \item \textbf{Representación del resultado en el R Markdown:} Cuando intentabamos representar directamente el dataframe resultado en este R Markdown, se representaba de una manera extraña debido a la gran cantidad de texto que contiene la columna de definiciones, ya que la definición se salía de la página y en ocasiones ni siquiera se mostraban todas las definiciones, con lo cual tuvimos que buscar una solución a este problema. Fue entonces cuando vimos que es posible crear tablas de LaTeX en el documento usando una función de knitr. Sin embargo, en ocasiones el texto de las columnas se superponía, haciendo la tabla ilegible, así que tuvimos que usar una librería adicional que permite establecer un formato personalizado a las tablas.
+  \item \textbf{Función para obtener definiciones:} Este aspecto de la práctica no ha sido complicado en sí, pero si que ha requerido un poco de investigación porque en un principio no sabíamos cómo extraer la definición a partir de la página web proporcionada. Sin embargo, una vez encontrada la librería necesaria para poder extraer la definición de la página web (rvest), el desarrollo de esta parte de la práctica no fue difícil.
+  \item \textbf{Representación del resultado en el R Markdown:} Cuando intentabamos representar directamente el dataframe resultado en este R Markdown, se representaba de una manera extraña debido a la gran cantidad de texto que contiene la columna de definiciones, ya que la definición se salía de la página y en ocasiones ni siquiera se mostraban todas las definiciones, con lo cual tuvimos que buscar una solución a este problema. Fue entonces cuando vimos que es posible crear tablas de LaTeX en el documento usando una función de knitr (kable). Sin embargo, en ocasiones el texto de las columnas se superponía, haciendo la tabla ilegible, así que tuvimos que usar una librería adicional (kableExtra) que permite establecer un formato personalizado a las tablas.
 \end{itemize}
 
 # Trabajo grupal
@@ -279,7 +278,7 @@ El desarrollo del proyecto del buscador de enfermedades se llevó a cabo en equi
 A continuación, se detalla la división del trabajo y el rol desempeñado por cada integrante del equipo:
 
 Responsable: Álvaro Herrero y Eduardo Vicente (50% - 50%) \newline
-Se enfocaron en desarrollar las expresiones regulares necesarias para identificar las enfermedades en los textos, basándose en los afijos médicos predefinidos y las funciones que se encargan de clasificar las enfermedades según su tipo. Asimismo, elaboraron el fragmento de script que se encarga de escoger las palabras deseadas de los sintagmas nominales fitrados, asegurándose de que las palabras encontradas fueran sustantivos, descartando aquellos casos en los que los afijos estuvieran presentes en adjetivos o verbos.
+Se enfocaron en desarrollar las expresiones regulares necesarias para identificar las enfermedades en los textos, basándose en los afijos médicos predefinidos y las funciones que se encargan de clasificar las enfermedades según su tipo. Asimismo, elaboraron el fragmento de script que se encarga de escoger las palabras deseadas de los sintagmas nominales fitrados, asegurándose de que las palabras encontradas fueran sustantivos y descartando aquellos casos en los que los afijos estuvieran presentes en adjetivos o verbos.
 
 Responsable: Esteban Moreno \newline
 Fue responsable de implementar el análisis sintáctico del texto para extraer el sintagma nominal completo que describiera cada enfermedad (por ejemplo, "fascitis necrosante"). También se encargó de la lematización de las enfermedades identificadas.
